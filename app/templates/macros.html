@@ -1,0 +1,20 @@
+{% macro displayPitches(pitches) %}
+{% for pitch in pitches %}
+  {% if pitch.user.profile_pic-path %}
+  <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2 pitch-card">
+        <img src="{{ pitch.poster }}" alt="{{ pitch.title }} poster" class="img-responsive">
+    <p>{{pitch.user.username}}</p>
+
+    <a href="/pitch/{{pitch.id}}">{{pitches.content}}</a>
+    <button>Upvote</button>
+    <button>DownVote</button>
+    {%else%}
+    <img src="static/photos/no_dp.png" alt="">
+    <button>UpVote</button>
+    <button>DownVote</button>
+    <a href="/new/comment/{{pitch.id}}">Leave Comment</a>
+    {%endif%}
+
+    {%endfor%}
+    {%endmacro%}
+   
