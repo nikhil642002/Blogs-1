@@ -27,10 +27,10 @@ def create_blogs():
 
 
     if form.validate_on_submit():
-        category = form.category.data
+        # category = form.category.data
         content = form.content.data 
 
-        new_blog = Blog(description=content,category=category,user=current_user)
+        new_blog = Blog(description=content,user=current_user)
         new_blog.save_blog()
 
         return redirect(url_for('main.index'))
@@ -55,7 +55,7 @@ def create_comments(id):
         db.session.add(new_comment)
         db.session.commit()
 
-    comments = Comment.query.filter_by(blog_id = id).all()
+    comments = Comment.get_comments(id=id)
 
 
     return render_template('comments.html', form=form ,comments=comments)

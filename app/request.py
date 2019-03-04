@@ -1,25 +1,24 @@
 import urllib.request,json
-from .models import Quotes
+from .models import Quote
 
 
-# Getting api key
-# Getting the quote base url
 base_url = None
 
 def configure_request(app):
     global api_key,base_url
+
     base_url = app.config['QUOTE_API_BASE_URL']
 
-def get_quotes():
+def get_quote():
     
 
     with urllib.request.urlopen(base_url) as url:
-        get_quotes_data = url.read()
-        get_quotes_response = json.loads(get_quotes_data)
+        get_quote_data = url.read()
+        get_quote_response = json.loads(get_quote_data)
 
         quote_object = None
 
-        if get_quotes_response:
+        if get_quote_response:
            id=get_quote_response.get('id')
            author=get_quote_reponse.get('author')
            content=get_quote_response.get('quote')

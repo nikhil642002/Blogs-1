@@ -4,15 +4,15 @@ from flask_login import UserMixin
 from . import login_manager
 
 
-# class Quote:
-#   '''
-#   Quote class to define quote objects
-#   '''
+class Quote:
+  '''
+  Quote class to define quote objects
+  '''
 
-#   def __init__(self,id,author,content):
-#     self.id=id
-#     self.author=author
-#     self.content=content
+  def __init__(self,id,author,content):
+    self.id=id
+    self.author=author
+    self.content=content
 
 
 class User(UserMixin,db.Model):
@@ -53,8 +53,7 @@ class Blog(db.Model):
     id = db.Column(db.Integer,primary_key = True)
     user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
     description = db.Column(db.String(255))
-    category = db.Column(db.String(255))
-    comment = db.relationship('Comment',backref = 'pitch',lazy='dynamic')
+    comments = db.relationship('Comment',backref = 'blog',lazy='dynamic')
 
 
     def save_blog(self):
@@ -103,7 +102,7 @@ class Comment(db.Model):
 
     @classmethod
     def get_comments(cls,id):
-        comments=Comment.query.filter_by(blog_id).all()
+        comments=Comment.query.filter_by(blog_id=id).all()
         return comments
     
 
