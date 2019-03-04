@@ -1,5 +1,5 @@
 from flask import render_template,request,redirect,url_for,abort
-from ..models import Comment,Blog,User,PhotoProfile
+from ..models import Comment,Blog,User
 from . import main
 from .forms import UpdateProfile,CommentForm,UpdateProfile,AddBlogForm
 from ..import db,photos
@@ -15,7 +15,7 @@ def index():
 
     title = 'Home - Welcome to The best Blog Review Website Online'
     all_blogs = Blog.query.all()
-    # comments = Comment.query.filter_by(pitch_id = id).all()
+    # comments = Comment.query.filter_by(blog_id = id).all()
  
     return render_template('index.html', title = title, all_blogs= all_blogs)
 
@@ -37,7 +37,7 @@ def create_blogs():
 
     all_blogs = Blog.query.all()
        
-    title = 'Feel free to add a pitch'
+    title = 'Feel free to add a blog'
     return render_template('blogs.html',title = title, form=form)
 
 

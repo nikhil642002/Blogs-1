@@ -4,15 +4,15 @@ from flask_login import UserMixin
 from . import login_manager
 
 
-# class Quote:
-#   '''
-#   Quote class to define quote objects
-#   '''
+class Quote:
+  '''
+  Quote class to define quote objects
+  '''
 
-#   def __init__(self,id,author,content):
-#     self.id=id
-#     self.author=author
-#     self.content=content
+  def __init__(self,id,author,content):
+    self.id=id
+    self.author=author
+    self.content=content
 
 
 class User(UserMixin,db.Model):
@@ -22,7 +22,7 @@ class User(UserMixin,db.Model):
     profile_pic_path = db.Column(db.String(255))
     bio=db.Column(db.String(255))
     email = db.Column(db.String(255),unique = True,index = True)
-    hash_pass = db.Column(db.String(255)) 
+    pass_secure = db.Column(db.String(255)) 
     
 
     @property
@@ -104,12 +104,12 @@ class Comment(db.Model):
         db.session.commit()
 
 
-class PhotoProfile(db.Model):
-    __tablename__ = 'profile_photos'
+# class PhotoProfile(db.Model):
+#     __tablename__ = 'profile_photos'
 
-    id = db.Column(db.Integer,primary_key = True)
-    pic_path = db.Column(db.String())
-    user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
+#     id = db.Column(db.Integer,primary_key = True)
+#     pic_path = db.Column(db.String())
+#     user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
     
 
 
