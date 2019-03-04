@@ -1,20 +1,37 @@
 {% macro displayBlogs(blogs) %}
+
 {% for blog in blogs %}
-  {% if blog.user.profile_pic-path %}
-  <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2 blog-card">
-        <img src="{{ blog.poster }}" alt="{{ blog.title }} poster" class="img-responsive">
-    <p>{{blog.user.username}}</p>
 
-    <a href="/blog/{{blog.id}}">{{blogs.content}}</a>
-    <button>Upvote</button>
-    <button>DownVote</button>
-    {%else%}
-    <img src="static/photos/no_dp.png" alt="">
-    <button>UpVote</button>
-    <button>DownVote</button>
-    <a href="/new/comment/{{blog.id}}">Leave Comment</a>
-    {%endif%}
+<div class="container">
 
-    {%endfor%}
-    {%endmacro%}
-   
+   <h3 class='title'>{{blog.title}}</h3>
+   <p class="name">Author:Angela Uwase Karenzi</p>
+   <p>{{blog.content}}</p>
+  <img src="{{blog.image}}" alt="">
+
+  <a href="/blog/{{blog.id}}" class='blog'>View comments</a><br>
+
+
+ <a href="/new/comment/{{blog.id}}" class="btn btn-primary">Add comment</a>
+ <a href="/delete/blog/{{blog.id}}" class="btn btn-primary">Delete blog</a>
+ <a href="/edit/blog/{{blog.id}}" class="btn btn-primary">Edit blog</a>
+</div>
+
+
+ {%endfor%}
+ {%endmacro%}
+
+ {% macro displayComments(comments) %}
+ {% for comment in comments %}
+
+   <div class="container">
+   <h3 class="name">{{comment.username}}</h3>
+
+     <p>{{comment.content}}</p>
+     <a href="/delete/comment/{{comment.id}}" class="=btn btn-primary">Delete Comment</a>
+     </div>
+
+
+
+ {%endfor%}
+ {%endmacro%}

@@ -15,3 +15,13 @@ class UpdateProfile(FlaskForm):
 class AddBlogForm(FlaskForm):
     content = TextAreaField ('Blog', validators = [Required()])
     submit = SubmitField('SUBMIT')
+
+class SubscriptionForm(FlaskForm):
+   name=StringField('Name',validators =[Required()])
+   email=StringField('Email',validators =[Required()])
+   submit = SubmitField('Submit')
+
+# class UpdatePostForm(FlaskForm):
+#    title=StringField('Title',validators = [Required()])
+#    content=TextAreaField('Content',validators = [Required()])
+#    submit=SubmitField('SUBMIT')

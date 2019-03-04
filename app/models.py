@@ -1,5 +1,6 @@
 from . import db
 from werkzeug.security import generate_password_hash,check_password_hash
+# from flask_sqlalchemy import flask_SQLAlchemy
 from flask_login import UserMixin
 from . import login_manager
 
@@ -120,10 +121,10 @@ class PhotoProfile(db.Model):
     
 
 
-# class Subscription(db.Model):
-#     __tablename__='subscribers'
+class Subscription(db.Model):
+    __tablename__='subscribers'
 
-#     id=db.Column(db.Integer,primary_key=True)
-#     name=db.Column(db.String(255))
-#     email =db.Column(db.String(255), unique = True , index = True)
+    id=db.Column(db.Integer,primary_key=True)
+    name=db.Column(db.String(255))
+    email =db.Column(db.String(255), unique = True , index = True)
 

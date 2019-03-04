@@ -1,4 +1,5 @@
 {% extends 'base.html'%}
+{% import "bootstrap/wtf.html" as wtf%}
 {% import 'macros.html' as macro%}
 
 {% block styles%}
@@ -7,7 +8,6 @@
 {% endblock %}
     
 {% block content %}
-
 <div class="container">
     <div class="row">
         <blockquote class="text-center text-lg">
@@ -16,26 +16,16 @@
         </blockquote>
         <a href="blog/new" class="btn btn-primary">Add Blog post</a>
     </div>
+
+
 </div>
 {{macro.displayBlogs(blogs)}}<br>
 <div id="sub">
     <h3>If you want to recieve notifications when new post is added.</h3>
     <h2>Subscribe here</h2>
     <div id='subscription' class='container'>
-        {{wtf.quick_form(subscription_form)}}
+    {{wtf.quick_form(subscription_form)}}
     </div>
 </div>
 {% endblock %}
 
-<!-- <body>
-    <h1>WELCOME TO MY PERSONAL BLOG POST WEBSITE</h1><br>
-    <p>Click on button to add a post<a href="{{url_for('main.create_blogs')}}"><button>Add Post</button></a></p>
-   
-    {%for blog in all_blogs %}</li>
-    <p>{{blog.description}}</p>
-    <div class="comment">
-    <a href="/comment/new/{{blog.id}}"><button>Comments</button></a>
-    </div>
-</body>
-    {%endfor%}
-    {% endblock %} -->

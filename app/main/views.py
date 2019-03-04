@@ -1,24 +1,34 @@
-from flask import render_template,request,redirect,url_for,abort
-from ..models import Comment,Blog,User, PhotoProfile
-from . import main
-from .forms import UpdateProfile,CommentForm,UpdateProfile,AddBlogForm
+from flask import render_template,request,redirect,url_for
+from . import main 
+from ..models import Comment,Blog,User, PhotoProfile, Quote, Subscription
+from ..request import get_quote
+from .forms import UpdateProfile,CommentForm,UpdateProfile,AddBlogForm,SubscriptionForm
 from ..import db,photos
 from flask_login import login_required, current_user
 # Views
 
-@main.route('/')
+@main.route('/', methods = ['GET', 'POST'])
 def index():
+ '''
+   View root page function that returns the index page and its data
+   '''
+ form=SubscriptionForm()
+ if form.validate_on_submit():
+       name = form.name.data
 
-    '''
-    View root page function that returns the index page and its data
-    '''
+       email= form.email.data
+       new_subscriber=Subscription(name=name,email=email)
+       db.session.add(new_subscriber)
+       db.session.commit()
 
-    title = 'Home - Welcome to The best Blog Review Website Online'
-    all_blogs = Blog.query.all()
-    # comments = Comment.query.filter_by(blog_id = id).all()
- 
-    return render_template('index.html', title = title, all_blogs= all_blogs)
+       mail_message("Thank you for subscribing","email/welcome_user",new_subscriber.email,user=new_subscriber)
 
+       return redirect(url_for('main.index'))
+ quote=get_quote()
+ blogs=Blog.get_blogs()
+ title= "Truthy!!"
+
+ return render_template('index.html',title=title,quote=quote,blogs=blogs ,subscription_form=form)
 
 @main.route('/blog/new/', methods = ['GET','POST'])
 @login_required
@@ -28,17 +38,23 @@ def create_blogs():
 
     if form.validate_on_submit():
         # category = form.category.data
+        title = form.title.data 
+
+        blog = form.content.data 
         content = form.content.data 
 
         new_blog = Blog(description=content,user=current_user)
         new_blog.save_blog()
 
+        subscribers=Subscription.query.all()
+        for subscriber in subscribers:
+           mail_message("New Blog Post","email/send_email",subscriber.email,user=subscriber,post=new_post)
+
         return redirect(url_for('main.index'))
 
-    all_blogs = Blog.query.all()
-       
-    title = 'Feel free to add a blog'
-    return render_template('blogs.html',title = title, form=form)
+
+    title = "Add Post |Truthy!!"   
+    return render_template('blogs.html', title = title, blog_form = form)
 
 
 @main.route('/comment/new/<int:id>', methods = ['GET','POST'])
@@ -62,10 +78,9 @@ def create_comments(id):
 
 @main.route('/blog/<int:id>')
 def blog(id):
-    blog=Blog.get_bloge(id)
-
-    return render_template('blog.html',blog=blog)
-
+    blog=Blog.query.filter_by(id=id).first()
+    comments=Comment.get_comments(id=id)
+    return render_template('blog.html',blog=blog,comments=comments)
 @main.route('/user/<uname>')
 def profile(uname):
     user = User.query.filter_by(username = uname).first()
@@ -103,3 +118,12 @@ def update_pic(uname):
         user.profile_pic_path = path
         db.session.commit()
     return redirect(url_for('main.profile',uname=uname))
+
+@main.route('/delete/blog/<int:id>', methods = ['GET', 'POST'])
+@login_required
+def delete_blog(id):
+    blog=Blog.query.filter_by(id=id).first()
+
+    if blog is not None:
+      blog.delete_blog(id)
+       return redirect(url_for('main.index'))
