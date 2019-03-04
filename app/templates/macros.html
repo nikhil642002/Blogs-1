@@ -5,14 +5,11 @@
 <div class="container">
 
    <h3 class='title'>{{blog.title}}</h3>
+   <p>{{blog.description}}</p>
    <p class="name">Author:Angela Uwase Karenzi</p>
-   <p>{{blog.content}}</p>
   <img src="{{blog.image}}" alt="">
 
-  <a href="/blog/{{blog.id}}" class='blog'>View comments</a><br>
-
-
- <a href="/new/comment/{{blog.id}}" class="btn btn-primary">Add comment</a>
+ <a href="/comment/new/{{blog.id}}"><button>Comments</button></a>
  <a href="/delete/blog/{{blog.id}}" class="btn btn-primary">Delete blog</a>
  <a href="/edit/blog/{{blog.id}}" class="btn btn-primary">Edit blog</a>
 </div>

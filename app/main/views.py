@@ -1,9 +1,9 @@
 from flask import render_template,request,redirect,url_for
 from . import main 
+from ..import db
 from ..models import Comment,Blog,User, PhotoProfile, Quote, Subscription
 from ..request import get_quote
-from .forms import UpdateProfile,CommentForm,UpdateProfile,AddBlogForm,SubscriptionForm
-from ..import db,photos
+from .forms import UpdateProfile,CommentForm,UpdateProfile,AddBlogForm,SubscriptionForm,UpdateBlogForm
 from flask_login import login_required, current_user
 # Views
 
@@ -26,7 +26,7 @@ def index():
        return redirect(url_for('main.index'))
  quote=get_quote()
  blogs=Blog.get_blogs()
- title= "Truthy!!"
+ title= "WELCOME"
 
  return render_template('index.html',title=title,quote=quote,blogs=blogs ,subscription_form=form)
 
@@ -74,7 +74,6 @@ def create_comments(id):
 
     comments = Comment.get_comments(id=id)
 
-    return redirect(url_for('main.index'))
     return render_template('comments.html', form=form ,comments=comments)
 
 @main.route('/blog/<int:id>')
@@ -126,8 +125,8 @@ def delete_blog(id):
     blog=Blog.query.filter_by(id=id).first()
 
     if blog is not None:
-      blog.delete_blog(id)
-       return redirect(url_for('main.index'))
+      blog.delete_blog()
+    return redirect(url_for('main.index'))
 
 @main.route('/edit/blog/<int:id>',methods= ['GET','POST'])
 @login_required

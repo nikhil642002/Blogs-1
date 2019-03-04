@@ -6,6 +6,7 @@ from ..models import User
 class CommentForm(FlaskForm):
 
     # title = StringField('Review title',validators=[Required()])
+    username=StringField('Username', validators = [Required()])
     comment = TextAreaField('Blog comment', validators=[Required()])
     submit = SubmitField('Submit')
 class UpdateProfile(FlaskForm):
@@ -14,6 +15,7 @@ class UpdateProfile(FlaskForm):
 
 class AddBlogForm(FlaskForm):
     content = TextAreaField ('Blog', validators = [Required()])
+    title=StringField('Title', validators = [Required()])
     submit = SubmitField('SUBMIT')
 
 class SubscriptionForm(FlaskForm):
@@ -21,7 +23,7 @@ class SubscriptionForm(FlaskForm):
    email=StringField('Email',validators =[Required()])
    submit = SubmitField('Submit')
 
-# class UpdatePostForm(FlaskForm):
-#    title=StringField('Title',validators = [Required()])
-#    content=TextAreaField('Content',validators = [Required()])
-#    submit=SubmitField('SUBMIT')
+class UpdateBlogForm(FlaskForm):
+   title=StringField('Title',validators = [Required()])
+   content=TextAreaField('Content',validators = [Required()])
+   submit=SubmitField('SUBMIT')

@@ -22,7 +22,7 @@ class User(UserMixin,db.Model):
     username = db.Column(db.String(255))
     email = db.Column(db.String(255),unique = True,index = True)
     blog = db.relationship('Blog', backref = 'user', lazy='dynamic')
-    comment = db.relationship('Comment',backref = 'user',lazy='dynamic')
+    all_comments = db.relationship('Comment',backref = 'user',lazy='dynamic')
     bio = db.Column(db.String(255))
     profile_pic_path = db.Column(db.String(255))
     pass_secure = db.Column(db.String(255)) 
@@ -76,12 +76,10 @@ class Blog(db.Model):
         return blogs
     
 
-    # def delete_blog(self):
-    #     comments = Comment.query.filter_by(blog_id=id).all()
-    #     db.session.delete(comments)
-    #     db.session.commit()
-    #     db.session.delete(self)
-    #     db.session.commit()
+    def delete_blog(self):
+       
+        db.session.delete(self)
+        db.session.commit()
     
 
 class Comment(db.Model):
