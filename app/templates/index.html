@@ -9,7 +9,7 @@
 {% block content %}
 <body>
     <h1>WELCOME TO MY PERSONAL BLOG POST WEBSITE</h1><br>
-    <p>Click on button to create a pitch<a href="{{url_for('main.create_blogs')}}"><button>Add Pitch</button></a></p>
+    <p>Click on button to add a post<a href="{{url_for('main.create_blogs')}}"><button>Add Post</button></a></p>
    
     {%for pitch in all_pitches %}</li>
     <p>{{pitch.description}}</p>

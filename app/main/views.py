@@ -13,7 +13,7 @@ def index():
     View root page function that returns the index page and its data
     '''
 
-    title = 'Home - Welcome to The best Pitches Review Website Online'
+    title = 'Home - Welcome to The best Blog Review Website Online'
     all_blogs = Blog.query.all()
     # comments = Comment.query.filter_by(pitch_id = id).all()
  
