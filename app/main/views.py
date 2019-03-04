@@ -1,5 +1,5 @@
 from flask import render_template,request,redirect,url_for,abort
-from ..models import Comment,Blog,User
+from ..models import Comment,Blog,User, PhotoProfile
 from . import main
 from .forms import UpdateProfile,CommentForm,UpdateProfile,AddBlogForm
 from ..import db,photos
@@ -30,7 +30,7 @@ def create_blogs():
         category = form.category.data
         content = form.content.data 
 
-        new_blog = Blog(description=content,user=current_user)
+        new_blog = Blog(description=content,category=category,user=current_user)
         new_blog.save_blog()
 
         return redirect(url_for('main.index'))

@@ -4,24 +4,26 @@ from flask_login import UserMixin
 from . import login_manager
 
 
-class Quote:
-  '''
-  Quote class to define quote objects
-  '''
+# class Quote:
+#   '''
+#   Quote class to define quote objects
+#   '''
 
-  def __init__(self,id,author,content):
-    self.id=id
-    self.author=author
-    self.content=content
+#   def __init__(self,id,author,content):
+#     self.id=id
+#     self.author=author
+#     self.content=content
 
 
 class User(UserMixin,db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer,primary_key = True)
     username = db.Column(db.String(255))
-    profile_pic_path = db.Column(db.String(255))
-    bio=db.Column(db.String(255))
     email = db.Column(db.String(255),unique = True,index = True)
+    blog = db.relationship('Blog', backref = 'user', lazy='dynamic')
+    comment = db.relationship('Comment',backref = 'user',lazy='dynamic')
+    bio = db.Column(db.String(255))
+    profile_pic_path = db.Column(db.String(255))
     pass_secure = db.Column(db.String(255)) 
     
 
@@ -49,10 +51,10 @@ class Blog(db.Model):
     __tablename__ = 'blogs'
 
     id = db.Column(db.Integer,primary_key = True)
-    title = db.Column(db.String())
     user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
     description = db.Column(db.String(255))
-    comments = db.relationship('Comment',backref = 'blog',lazy='dynamic')
+    category = db.Column(db.String(255))
+    comment = db.relationship('Comment',backref = 'pitch',lazy='dynamic')
 
 
     def save_blog(self):
@@ -63,8 +65,14 @@ class Blog(db.Model):
         Blog.search_blogs.clear()
 
     @classmethod
-    def get_blogs(cls):
+    def get_bloge(cls):
         blogs=Blogs.query.all()
+        return blogs
+
+
+    @classmethod 
+    def get_blogs(cls):
+        blogs = Blog.query.filter_by().all()
         return blogs
     
 
@@ -80,7 +88,7 @@ class Comment(db.Model):
     __tablename__ = 'comments'
 
     id = db.Column(db.Integer,primary_key = True)
-    name = db.Column(db.String())
+    user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
     blog_id = db.Column(db.Integer,db.ForeignKey("blogs.id"))
     content = db.Column(db.String(255))
 
@@ -104,12 +112,12 @@ class Comment(db.Model):
         db.session.commit()
 
 
-# class PhotoProfile(db.Model):
-#     __tablename__ = 'profile_photos'
+class PhotoProfile(db.Model):
+    __tablename__ = 'profile_photos'
 
-#     id = db.Column(db.Integer,primary_key = True)
-#     pic_path = db.Column(db.String())
-#     user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
+    id = db.Column(db.Integer,primary_key = True)
+    pic_path = db.Column(db.String())
+    user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
     
 
 
