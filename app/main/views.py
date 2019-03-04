@@ -66,6 +66,7 @@ def create_comments(id):
     if form.validate_on_submit():
 
         comment = form.comment.data
+        name=form.username.data
 
         new_comment =Comment(content = comment , blog= blog, user=current_user)
         db.session.add(new_comment)
@@ -73,7 +74,7 @@ def create_comments(id):
 
     comments = Comment.get_comments(id=id)
 
-
+    return redirect(url_for('main.index'))
     return render_template('comments.html', form=form ,comments=comments)
 
 @main.route('/blog/<int:id>')
@@ -127,3 +128,22 @@ def delete_blog(id):
     if blog is not None:
       blog.delete_blog(id)
        return redirect(url_for('main.index'))
+
+@main.route('/edit/blog/<int:id>',methods= ['GET','POST'])
+@login_required
+def update_blog(id):
+   blog=Blog.query.filter_by(id=id).first()
+   if blog is None:
+        abort(404)
+
+   form=UpdateBlogForm()
+
+   if form.validate_on_submit():
+         blog.title=form.title.data
+         blog.content=form.content.data
+
+         db.session.add(blog)
+         db.session.commit()
+
+         return redirect(url_for('main.index'))
+   return render_template('update_blog.html',form=form)
