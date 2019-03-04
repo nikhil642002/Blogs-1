@@ -1,9 +1,9 @@
-/* body{
-    background-image: url('https://images.pexels.com/photos/1520145/pexels-photo-1520145.jpeg');
+body{
+    background-image: url('https://images.pexels.com/photos/1328887/pexels-photo-1328887.jpeg');
     background-size:cover;
     background-repeat:no-repeat;
 }
-p{
+/* p{
     text-align:center;
     font-family: 'Cookie', cursive;
     font-size:30px;

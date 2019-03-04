@@ -52,6 +52,7 @@ class Blog(db.Model):
     __tablename__ = 'blogs'
 
     id = db.Column(db.Integer,primary_key = True)
+    title=db.Column(db.String(255))
     user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
     description = db.Column(db.String(255))
     comments = db.relationship('Comment',backref = 'blog',lazy='dynamic')
@@ -86,6 +87,7 @@ class Comment(db.Model):
     __tablename__ = 'comments'
 
     id = db.Column(db.Integer,primary_key = True)
+    username = db.Column(db.String(255),index = True)
     user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
     blog_id = db.Column(db.Integer,db.ForeignKey("blogs.id"))
     content = db.Column(db.String(255))

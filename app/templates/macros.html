@@ -1,7 +1,7 @@
 {% macro displayBlogs(blogs) %}
 
 {% for blog in blogs %}
-
+<body>
 <div class="container">
 
    <h3 class='title'>{{blog.title}}</h3>
@@ -19,6 +19,7 @@
  {%endmacro%}
 
  {% macro displayComments(comments) %}
+
  {% for comment in comments %}
 
    <div class="container">
@@ -27,7 +28,7 @@
      <p>{{comment.content}}</p>
      <a href="/delete/comment/{{comment.id}}" class="=btn btn-primary">Delete Comment</a>
      </div>
-
+</body>
 
 
  {%endfor%}
