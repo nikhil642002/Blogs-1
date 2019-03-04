@@ -5,6 +5,8 @@ from ..models import Comment,Blog,User, PhotoProfile, Quote, Subscription
 from ..request import get_quote
 from .forms import UpdateProfile,CommentForm,UpdateProfile,AddBlogForm,SubscriptionForm,UpdateBlogForm
 from flask_login import login_required, current_user
+from ..email import mail_message
+
 # Views
 
 @main.route('/', methods = ['GET', 'POST'])
@@ -48,7 +50,7 @@ def create_blogs():
 
         subscribers=Subscription.query.all()
         for subscriber in subscribers:
-           mail_message("New Blog Post","email/send_email",subscriber.email,user=subscriber,post=new_post)
+           mail_message("New Blog Post","email/welcome_user",subscriber.email,user=subscriber,blog=new_blog)
 
         return redirect(url_for('main.index'))
 
