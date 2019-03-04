@@ -50,12 +50,12 @@ def create_blogs():
 
         subscribers=Subscription.query.all()
         for subscriber in subscribers:
-           mail_message("New Blog Post","email/welcome_user",subscriber.email,user=subscriber,blog=new_blog)
+           mail_message("New Blog Post","email/send_email",subscriber.email,user=subscriber,blog=new_blog)
 
         return redirect(url_for('main.index'))
 
 
-    title = "Add Post |Truthy!!"   
+    title = "Add Post"   
     return render_template('blogs.html', title = title, blog_form = form)
 
 
