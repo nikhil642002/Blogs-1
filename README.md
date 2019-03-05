@@ -1,7 +1,7 @@
 # PERSONAL BLOG POST
-#### This is a web application where an admin can share personal blog posts with an addition of random quotes being displayed, 5th March 2019
+#### This is a a Personal Blog post web application, 5th March 2019
 
-### By **KARENZI Angela**
+### By **KARENZI ANGELA**
 ##  Description
 This is a personal blogging website where an admin can create and share their opinions by blogging and have random quotes displayed for users to inspire them.
 ## Setup/Installations
