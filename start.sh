@@ -1,4 +1,4 @@
-export QUOTE_API_BASE_URL = "http://quotes.stormconsultancy.co.uk/random.json"
+
 export SECRET_KEY=0787889107
 export MAIL_USERNAME='angelakarenzi5@gmail.com'
 export MAIL_PASSWORD='GodAlmighty1'

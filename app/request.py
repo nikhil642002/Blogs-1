@@ -1,12 +1,13 @@
 import urllib.request,json
 from .models import Quote
+from app import app
 
 base_url=None
-
+base_url = app.config['QUOTE_API_BASE_URL']
 def configure_request(app):
    global base_url
 
-   base_url = app.config['QUOTE_API_BASE_URL']
+  
 
 def get_quote():
   with urllib.request.urlopen(base_url) as url:
