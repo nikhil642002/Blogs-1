@@ -27,9 +27,10 @@ This is a personal blogging website where an admin can create and share their op
 
 ### Test
 * To run tests
-  * In your terminal<br>
-  $ python3.6 source_test.py<br>
-   $ python3.6 article_.py
+* In your terminal<br>
+  $ python3.6 test_blog.py<br>
+  $ python3.6 test_comment.py
+  $ python3.6 test_user.py
 
 
 ##BDD
