@@ -1,4 +1,4 @@
-# PERSONAL BLOG POST
+# PERSONAL BLOG POST - An Amazing PLatform to Post Blogs
 #### This is a Personal Blog post web application, 5th March 2019
 
 ### By **KARENZI ANGELA**
